@@ -660,7 +660,7 @@ Section Title Area Style*/
 }
 
 .ma5menu__logo {
-  background-image: url(../../assets/images/logo.png);
+  /* background-image: url(../../assets/images/logo.png); */
   background-position: left center;
   background-repeat: no-repeat;
   background-size: auto;

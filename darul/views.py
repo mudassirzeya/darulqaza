@@ -429,16 +429,36 @@ def overview_page(request):
 def cases_overview_page(request):
     user = request.user
     staffProfile = UserProfile.objects.get(user=user)
+    all_judges = Judge.objects.all()
+    all_courts = Court.objects.all()
     case_status = Case.CASESTATUS
     cases = Case.objects.all().order_by('case_type', 'status')
+    all_cases = cases
     case_type = CaseType.objects.all()
+    searched_judge = request.GET.get('select_judge')
+    searched_court = request.GET.get('select_court')
+    try:
+        judge_obj = Judge.objects.get(id=int(searched_judge))
+    except:
+        judge_obj = None
+
+    try:
+        court_obj = Court.objects.get(id=int(searched_court))
+    except:
+        court_obj = None
+
+    if 'select_judge' in request.GET or 'select_court' in request.GET:
+        if judge_obj:
+            all_cases = all_cases.filter(judge=judge_obj)
+        if court_obj:
+            all_cases = all_cases.filter(court=court_obj)
     final_data = []
 
     total_status_count = [0]*(len(case_status) + 1)
 
     for types in case_type:
         case_type_obj = {}
-        type_cases = cases.filter(case_type=types)
+        type_cases = all_cases.filter(case_type=types)
         case_type_obj["case_type"] = types.case_type
         # if type_cases.count() > 0:
         status_count_list = []
@@ -463,9 +483,12 @@ def cases_overview_page(request):
         final_data.append(case_type_obj)
 
         total_status_count[0] = total_status_count[0] + total_count
-    context = {'cases': cases, 'case_status': list(
+    context = {'cases': all_cases, 'case_status': list(
         case_status), 'final_data': final_data,
-        'total_status_case': total_status_count}
+        'total_status_case': total_status_count,
+        'all_judges': all_judges, 'all_courts': all_courts,
+        'searched_judge': searched_judge, 'searched_court': searched_court
+    }
     return render(request, 'cases_dashboard.html', context)
 
 
