@@ -1,0 +1,285 @@
+{% load static %}
+<!doctype html>
+<html lang="zxx">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Links Of CSS File -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/remixicon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/ma5-menu.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/dark-mode.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'assets/images/favicon.png' %}">
+    <link rel="manifest" crossorigin="use-credentials" href="{% static 'manifest/manifest.json' %}">
+    <!-- Title -->
+    <title>Darul Qaza</title>
+</head>
+
+<body>
+    <!-- Start Preloader Area -->
+    <div class="preloader" id="loader-style">
+        <div class="preloader-wrap">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <!-- End Preloader Area -->
+
+    <!-- Start Navbar Area -->
+    <div class="navbar-area">
+        <div class="container">
+            <div class="row d-flex justify-content-between align-items-center">
+                <div class="col">
+                    <div class="brand-wrap">
+                        <button class="ma5menu__toggle" type="button">
+                            <span class="ma5menu__icon-toggle"></span>
+                            <span class="ma5menu__sr-only">Menu</span>
+                        </button>
+                        <h2>
+                            <a>دار القضاء</a>
+                        </h2>
+                    </div>
+
+                    <ul class="site-menu">
+                        <li>
+                            <img src="{% static 'assets/images/menu-icon/icon-27.png' %}" alt="Images">
+                            <a href="{% url 'overview_page' %}">
+                                Overview
+                            </a>
+                        </li>
+                        <li>
+                            <img src="{% static 'assets/images/menu-icon/icon-14.png' %}" alt="Images">
+                            <a href="{% url 'user_logout' %}">
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Navbar Area -->
+
+    <div class="bg-color-f5f8ff border-radius-20">
+        <!-- Start Features Area -->
+        <div class="features-area ptb-30">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Qazi {{request.user.first_name}}</h2>
+                </div>
+
+
+                <!-- <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Status</th>
+                            <th scope="col">Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>New</th>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <th>NOTICE Servered</th>
+                            <td>3</td>
+
+                        </tr>
+                        <tr>
+                            <th>Mediation Completed</th>
+                            <td>7</td>
+
+                        </tr>
+                        <tr>
+                            <th>Pending on Witness</th>
+                            <td>8</td>
+
+                        </tr>
+                    </tbody>
+                </table> -->
+
+                <a class="btn btn-primary btn-sm mb-2" href="{% url 'new_case' %}" style="font-size: 15px">
+                    نیا کیس شامل کریں
+                </a>
+                <br>
+                <hr>
+
+                <form class="search-forms" method="get">
+                    <div class="form-group style-three">
+                        {% if searched_text %}
+                        <input type="text" class="form-control" placeholder="Search..." name="text" value="{{searched_text}}">
+                        {% else %}
+                        <input type="text" class="form-control" placeholder="Search..." name="text">
+                        {% endif %}
+                    </div>
+                    <div class="form-group style-three">
+                        <select class="form-select" name="select_casetype">
+                            {% if casetype %}
+                                {% for cases in case_type %}
+                                    {% if cases.id == casetype.id  %}
+                                    <option value="{{cases.id}}">{{cases.case_type}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                            <option value="">Search from Case-Type</option>
+                            {% endif %}
+                            {% for case in case_type %}
+                            <option value="{{case.id}}">{{case.case_type}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group style-three">
+                        <select class="form-select" name="select_status">
+                            {% if casestatus %}
+                            {% for status_case  in case_status %}
+                            {% if status_case.0 == casestatus %}
+                            <option value="{{status_case.0}}">{{status_case.0}}</option>
+                            {% endif %}
+                            {% endfor %}
+                            {% else %}
+                            <option value="">Search from Case-Status</option>
+                            {% endif %}
+                            
+                            {% for status in case_status %}
+                            <option value="{{status.0}}">{{status.0}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group style-three">
+                        <select class="form-select" name="select_court">
+                            {% if selectcourt %}
+                            {% for select in court_list %}
+                            {% if select.id == selectcourt.id %}
+                            <option value="{{select.id}}">{{select.court_name}}</option>
+                            {% endif %}
+                            {% endfor %}
+                            {% else %}
+                            <option value="">Search from Court</option>
+                            {% endif %}
+                            
+                            {% for court in court_list %}
+                            <option value="{{court.id}}">{{court.court_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="{% url 'lawyer_page' %}" class="btn btn-danger btn-sm mb-2" style="font-size: 15px;">
+                                Reset Filter
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-success btn-sm mb-2" style="font-size: 15px;">
+                                <i class="fas fa-search">&nbsp;</i>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+
+            </div>
+        </div>
+        <!-- End Features Area -->
+
+        <!-- Start Best Support Area -->
+        {% for case in judge_cases %}
+        <div class="best-support-area pt-10">
+            <div class="container">
+                <div class="single-support">
+
+                    <div class="support-content">
+                        <h3>Case: {{ case.id }} - {{case.case_type.case_type}}</h3>
+                        <p>{{case.plaintiff}}, {{case.accused}}</p>
+                        <a href="{% url 'edit_case' case.id %}" class="read-more">
+                            View Detail
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- End Best Support Area -->
+
+        <div class="row justify-content-center m-3">
+            <!-- <div class="">&nbsp;</div> -->
+            <div class="col-6">
+                {% if search_text or casetype or casestatus or selectcourt  %}
+                    {%if judge_cases.has_previous %}
+                    <!-- <a href="{% url 'lawyer_page' %}?page={{all_page.previous_page_number}}"> -->
+                    <a class="btn btn-primary" href="{% url 'lawyer_page' %}?page={{judge_cases.previous_page_number}}&text={{searched_text}}&select_casetype={{casetype.id}}&select_status={{casestatus}}&select_court={{selectcourt.id}}">
+                        <i class="fas fa-angle-double-left"></i> Previous Page</a>
+                    {% endif %}
+                {% else %}
+                        {%if judge_cases.has_previous %}
+                            <a class="btn btn-primary" href="{% url 'lawyer_page' %}?page={{judge_cases.previous_page_number}}">
+                                <i class="fas fa-angle-double-left"></i> Previous Page</a>
+                        {% endif %}
+                {% endif %}
+            </div>
+            <!-- <span>{{all_page.number}}</span>  -->
+            
+            <div class="col-6">
+                {% if search_text or casetype or casestatus or selectcourt %}
+                    {%if judge_cases.has_next %}
+                    <!-- <a href="{% url 'lawyer_page' %}?page={{page_obj.next_page_number}}"></a> -->
+                    <a class="btn btn-success" href="{% url 'lawyer_page' %}?page={{judge_cases.next_page_number}}&text={{searched_text}}&select_casetype={{casetype.id}}&select_status={{casestatus}}&select_court={{selectcourt.id}}">
+                        Next Page <i class=" fas fa-angle-double-right"></i></a>
+                    {% endif %}
+                {% else %}
+
+                    {%if judge_cases.has_next %}
+                    <!-- <a href="{% url 'lawyer_page' %}?page={{page_obj.next_page_number}}"></a> -->
+                    <a class="btn btn-success" href="{% url 'lawyer_page' %}?page={{judge_cases.next_page_number}}">
+                        Next Page <i class=" fas fa-angle-double-right"></i></a>
+                    {% endif %}
+
+                {% endif %}
+            </div>
+            <!-- <div class="col-2">&nbsp;</div> -->
+                
+        </div>
+        <br>
+
+    </div>
+
+
+
+
+    <!-- Links of JS File -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/carousel-thumbs.min.js' %}"></script>
+    <script src="{% static 'assets/js/wow.js' %}"></script>
+    <script src="{% static 'assets/js/magnific-popup.min.js' %}"></script>
+    <script src="{% static 'assets/js/dark-mode-switch.min.js' %}"></script>
+    <script src="{% static 'assets/js/ma5-menu.min.js' %}"></script>
+    <script src="{% static 'assets/js/calendar.js' %}"></script>
+    <script src="{% static 'assets/js/form-validator.min.js' %}"></script>
+    <script src="{% static 'assets/js/contact-form-script.js' %}"></script>
+    <script src="{% static 'assets/js/apexcharts.min.js' %}"></script>
+    <script src="{% static 'assets/js/apex-custom-pie-donut-chart.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,365 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    #cover-spin {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.7);
+        z-index: 9999;
+        display: none;
+    }
+
+    @-webkit-keyframes spin {
+        from {
+            -webkit-transform: rotate(0deg);
+        }
+
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    #cover-spin::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 48%;
+        top: 40%;
+        width: 40px;
+        height: 40px;
+        border-style: solid;
+        border-color: black;
+        border-top-color: transparent;
+        border-width: 4px;
+        border-radius: 50%;
+        -webkit-animation: spin .8s linear infinite;
+        animation: spin .8s linear infinite;
+    }
+
+    #cover-spin {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.7);
+        z-index: 9999;
+        display: none;
+    }
+
+    @-webkit-keyframes spin {
+        from {
+            -webkit-transform: rotate(0deg);
+        }
+
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    #cover-spin::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 48%;
+        top: 40%;
+        width: 40px;
+        height: 40px;
+        border-style: solid;
+        border-color: black;
+        border-top-color: transparent;
+        border-width: 4px;
+        border-radius: 50%;
+        -webkit-animation: spin .8s linear infinite;
+        animation: spin .8s linear infinite;
+    }
+</style>
+{% for message in messages %}
+<p class="text-danger text-center" id="messages">{{message}}</p>
+{% endfor %}
+<div class="float-right">
+    <button class="btn btn-warning text-white" data-toggle="modal" data-target="#add_user_modal"><i
+            class="fas fa-plus"></i> Add New Judge</button>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover table-bordered" id="file_export">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>email</th>
+                <th>password</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for judge in judges %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{judge.user.first_name}}</td>
+                <td>{{judge.phone}}</td>
+                <td>{{judge.email}}</td>
+                <td>{{judge.password}}</td>
+                <td><button class=" btn btn-danger" id="judge_{{judge.id}}" onclick="edit_judge_popup(this)"><i class="fas fa-edit"></i></button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- add judge modal  -->
+<div class="modal fade" id="add_user_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-info" id="exampleModalLongTitle">Add New Judge
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url 'judges_list' %}">
+                    {% csrf_token %}
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">Name</label>
+                        <input type="text" class="form-control" placeholder="name.." name="name" id="" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">phone</label>
+                        <input type="number" class="form-control" placeholder="" name="phone" id="" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">Email</label>
+                        <input type="text" class="form-control" placeholder="email" name="email" id="" required>
+                    </div>
+                    <div>
+                        <label for="">Select Court</label>
+                        <select class="select2 form-control" multiple="multiple" style="height: 36px;width: 100%;" name="court" id="select_court">
+                            <optgroup label="Darul Qaza/List of Courts">
+                                {% for court in courts %}
+                                <option value="{{court.id}}">{{court.court_name}}</option>
+                                {% endfor %}
+                            </optgroup>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">Passcode</label>
+                        <input type="text" class="form-control" placeholder="password.." name="passcode" id="" required>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-success" type="submit">Add User</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- edit judge modal  -->
+<div class="modal fade" id="edit_user_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-info" id="exampleModalLongTitle">Edit Data
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url 'edit_judge' %}">
+                    {% csrf_token %}
+                    <div class="form-group mb-4" style="display: none;">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">id</label>
+                        <input type="text" class="form-control" placeholder="" name="edit_id" id="edit_id">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">Name</label>
+                        <input type="text" readonly class="form-control" placeholder="name.." name="edit_name" id="edit_name" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">phone</label>
+                        <input type="number" readonly class="form-control" placeholder="" name="edit_phone" id="edit_phone" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">Email</label>
+                        <input type="text" readonly class="form-control" placeholder="email" name="edit_email" id="edit_email" required>
+                    </div>
+                    <div>
+                        <label for="">Select Court</label>
+                        <select class="select2 form-control" multiple="multiple" style="height: 36px;width: 100%;"
+                            name="edit_court" id="edit_court">
+                            <optgroup label="Darul Qaza/List of Courts">
+                                {% for court in courts %}
+                                <option value="{{court.id}}">{{court.court_name}}</option>
+                                {% endfor %}
+                            </optgroup>
+                        </select>
+                    </div>
+                    <br>
+                    <!-- <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">Passcode</label>
+                        <input type="text" class="form-control" placeholder="password.." name="passcode" id="" required>
+                    </div> -->
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-success" type="submit">Edit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+            $('#select_court').select2({
+                dropdownAutoWidth: true,
+                multiple: true,
+                width: '100%',
+                height: '30px',
+                placeholder: "Select",
+                allowClear: true,
+                dropdownParent: $('#add_user_modal')
+            });
+        });
+
+        $(document).ready(function () {
+                $('#edit_court').select2({
+                    dropdownAutoWidth: true,
+                    multiple: true,
+                    width: '100%',
+                    height: '30px',
+                    placeholder: "Select",
+                    allowClear: true,
+                    dropdownParent: $('#edit_user_modal')
+                });
+            });
+
+    
+    // function edit_judge_popup(t) {
+    //     var contact_id = t.id.split('_')[1];
+    //     // var contact_id = t.id;
+    //     send_id(t);
+
+    // }
+
+    function edit_judge_popup(t) {
+            // var pill_id = 'pill-' + question_id + '-tab';
+            $('#cover-spin').show(0);
+            if (t.id.length > 0) {
+                var judge_id = t.id.split('_')[1];
+                document.getElementById('edit_id').value = judge_id;
+                console.log('id', judge_id)
+            }else{ alert('something went wrong please try again') }
+
+            fetch("/recieve_judge_id/", {
+                method: "POST",
+                body: JSON.stringify({
+                    data_obj: judge_id,
+                }),
+                // Adding headers to the request
+                headers: {
+                    "Content-type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}",
+                },
+            })
+                .then((response) => {
+                    console.log(response);
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                        return;
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log("Success: ", data);
+                    var profile_data = data.profile_data;
+                    console.log("data: ", profile_data )
+                    var final_data = profile_data[0]['fields'];
+                    
+
+                    // console.log("court: ", court_data[0]['fields'])
+                    if (data.msg == 'success') {
+                        court_id_list = data.judge[0].fields.court
+                        document.getElementById('edit_name').value = data.name;
+                        document.getElementById('edit_phone').value = final_data['phone'];
+                        document.getElementById('edit_email').value = final_data['email'];
+                        // document.getElementById('company').value = final_data['company'];
+                        // document.getElementById('phone_1').value = final_data['phone'];
+                        // document.getElementById('label_1').value = final_data['phone_label'];
+                        var all_court = "{{json_allCourt}}"
+                        var json_courts = JSON.parse(all_court.replace(/&quot;/g, '"'));
+                    //     console.log("court id", json_courts)
+                        var edit_modal_body_elem = $('#edit_court');
+                        edit_modal_body_elem.children().remove();
+
+
+                        var option_elem = ''
+
+                        json_courts.forEach(courtObj => {
+                            if (court_id_list.includes(courtObj.pk)) {
+                                console.log("yes")
+                                option_elem += `<option selected value="${parseInt(courtObj['pk'])}">${courtObj['fields']['court_name']}</option>`;
+                            } else {
+                                option_elem += `<option value="${parseInt(courtObj['pk'])}">${courtObj['fields']['court_name']}</option>`;
+                            }
+                        });
+                        edit_modal_body_elem.append(option_elem);
+
+
+                        $('#cover-spin').hide(0);
+                        $('#edit_user_modal').modal('toggle');
+                    }
+                    else {
+                        document.getElementById('messages').innerHTML = "Something went Wrong please refresh the page";
+                        $('#cover-spin').hide(0);
+                    }
+                });
+        }
+
+    // $(document).ready(function () {
+    //     $("#select_court").select2({
+    //         dropdownParent: $("#add_user_modal"),
+    //     });
+    // });
+
+</script>
+{% endblock %}

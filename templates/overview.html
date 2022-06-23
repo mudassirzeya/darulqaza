@@ -1,0 +1,254 @@
+{% load static %}
+<!doctype html>
+<html lang="zxx">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Links Of CSS File -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/remixicon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/ma5-menu.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/dark-mode.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'assets/images/favicon.png' %}">
+    <link rel="manifest" crossorigin="use-credentials" href="{% static 'manifest/manifest.json' %}">
+    <!-- Title -->
+    <title>Darul Qaza</title>
+</head>
+
+<body>
+    <!-- Start Preloader Area -->
+    <div class="preloader" id="loader-style">
+        <div class="preloader-wrap">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <!-- End Preloader Area -->
+
+    <!-- Start Navbar Area -->
+    <div class="section-title mb-0 bg-color ptb-15">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">
+                    <a class="text-white" onclick="window.history.go(-1); return false;">
+                        <i class="ri-arrow-left-s-line"></i>
+                        Your Dashboard
+                    </a>
+                </h2>
+    
+            </div>
+        </div>
+    </div>
+    <!-- End Navbar Area -->
+
+    <div class="bg-color-f5f8ff border-radius-20">
+        <!-- Start Features Area -->
+        <div class="features-area ptb-30">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Qazi {{request.user.first_name}}</h2>
+                    <hr>
+                </div>
+
+
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">Count</th>
+                            <th class="text-center" scope="col">Status</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{status_1}}</td>
+                            <th>اندراج معاملہ</th>
+                            
+                        </tr>
+                        <tr>
+                            <td>{{status_2}}</td>
+                            <th>اطلاع اول بنام فریق دوم مع مثنی درخواست فریق اول</th>
+                            
+
+                        </tr>
+                        <tr>
+                            <td>{{status_3}}</td>
+                            <th>فریق دوم کو اطلاع موصول ہوئی</th>
+                            
+
+                        </tr>
+                        <tr>
+                            <td>{{status_4}}</td>
+                            <th>فریق دوم کو اطلاع موصول نہیں ہوئی</th>
+                            
+
+                        </tr>
+                        <tr>
+                            <td>{{status_5}}</td>
+                            <th>ادخال بیان تحریری من جانب فریق ثانی</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_6}}</td>
+                            <th>اطلاع بنام فریق اول برائے طلبی پتہ فریق دوم و متعلقین ومعززین فریق دوم</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_7}}</td>
+                            <th>اطلاع ثانی بنام فریق دوم / متعلقین و معززین فریق دوم مع مثنی درخواست</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_8}}</td>
+                            <th>تاریخ سماعت اول</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_9}}</td>
+                            <th>حاضری فریقین مع گواہان و اندراج بیانات</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_10}}</td>
+                            <th>حاضری فریق اول فقط مع گواہان واندراج بیانات</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_11}}</td>
+                            <th>حاضری فریق دوم فقط مع گواہا ن و اندراج بیانات</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_12}}</td>
+                            <th>ا طلاع ثالث بنام فریق دوم</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_13}}</td>
+                            <th>اشتہار مفقود الخبر ی در اخبار نقیب</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_14}}</td>
+                            <th>تاریخ سماعت دوم</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_15}}</td>
+                            <th>حاضری فریقین مع گواہان و اندراج بیانات</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_16}}</td>
+                            <th>حاضری فریق اول فقط مع گواہان واندراج بیانات</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_17}}</td>
+                            <th>حاضری فریق دوم فقط مع گواہا ن و اندراج بیانات</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_18}}</td>
+                            <th>تاریخ سماعت سوم</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_19}}</td>
+                            <th>حاضری فریقین مع گواہان و اندراج بیانات</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_20}}</td>
+                            <th>حاضری فریق اول فقط مع گواہان واندراج بیانات</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_21}}</td>
+                            <th>حاضری فریق دوم فقط مع گواہا ن و اندراج بیانات</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_22}}</td>
+                            <th>تصفیہ</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_23}}</td>
+                            <th>خارج بلا تجویز</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_24}}</td>
+                            <th>مصالحت بذریعہ خلع/ طلاق/ رخصتی</th>
+                            
+                        
+                        </tr>
+                        <tr>
+                            <td>{{status_25}}</td>
+                            <th>آخری حکم</th>
+                        </tr>
+                        <tr>
+                            <td>{{status_26}}</td>
+                            <th>ارسال مثل مرکزی دار القضاء</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <!-- Links of JS File -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/carousel-thumbs.min.js' %}"></script>
+    <script src="{% static 'assets/js/wow.js' %}"></script>
+    <script src="{% static 'assets/js/magnific-popup.min.js' %}"></script>
+    <script src="{% static 'assets/js/dark-mode-switch.min.js' %}"></script>
+    <script src="{% static 'assets/js/ma5-menu.min.js' %}"></script>
+    <script src="{% static 'assets/js/calendar.js' %}"></script>
+    <script src="{% static 'assets/js/form-validator.min.js' %}"></script>
+    <script src="{% static 'assets/js/contact-form-script.js' %}"></script>
+    <script src="{% static 'assets/js/apexcharts.min.js' %}"></script>
+    <script src="{% static 'assets/js/apex-custom-pie-donut-chart.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+</body>
+
+</html>
