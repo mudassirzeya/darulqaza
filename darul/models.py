@@ -96,10 +96,10 @@ class Case(models.Model):
     judge = models.ForeignKey(
         Judge, null=True, blank=True, on_delete=models.CASCADE)
     case_type = models.ForeignKey(
-        CaseType, null=True, blank=True, on_delete=models.PROTECT
+        CaseType, null=True, blank=True, on_delete=models.SET_NULL
     )
     court = models.ForeignKey(
-        Court, null=True, blank=True, on_delete=models.CASCADE)
+        Court, null=True, blank=True, on_delete=models.SET_NULL)
     date = models.DateField(auto_now_add=False, null=True, blank=True)
     accused = models.TextField(null=True, blank=True)
     plaintiff = models.TextField(null=True, blank=True)
