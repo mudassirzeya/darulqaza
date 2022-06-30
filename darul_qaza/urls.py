@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('darul.urls')),
+
+    # remove this debug tool bar in production
+    path('__debug__/', include('debug_toolbar.urls')),
 
 ]
