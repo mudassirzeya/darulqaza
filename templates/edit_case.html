@@ -80,7 +80,7 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="contact-form custom">
                         <br>
-                        <form method="POST" id="" action="{% url 'edit_case' case_data.id %}">
+                        <form method="POST" id="form_id" action="{% url 'edit_case' case_data.id %}">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label style="display: block; text-align: right; margin-right: 5px;">Status</label>
@@ -146,8 +146,8 @@
                             </div>
                         
                             <div>
-                                <button type="submit" class="default-btn">
-                                    Edit Now
+                                <button type="submit" class="default-btn" onclick="button_click(this, 'form_id')">
+                                    Update
                                 </button>
                                 <div id="msgSubmit" class="h3 text-center hidden"></div>
                                 <div class="clearfix"></div>
@@ -191,7 +191,7 @@
                 <div class="offcanvas-body small">
                     <h3>Your Notes</h3>
 
-                    <form method="post" action="{% url 'add_notes' %}" >
+                    <form method="post" action="{% url 'add_notes' %}" id="notes_form">
                         {% csrf_token %}
                         <div class="form-group" style="display: none;">
                             <input type="text" value="{{case_data.id}}" name="caseId" class="form-control" id=""required
@@ -206,7 +206,7 @@
                             <div class="help-block with-errors"></div>
                         </div>
                         <div>
-                            <button type="submit" class="default-btn">
+                            <button type="submit" class="default-btn" onclick="button_click(this, 'notes_form')">
                                 Add Now
                             </button>
                             <div id="msgSubmit" class="h3 text-center hidden"></div>
@@ -236,7 +236,21 @@
         <script src="{% static 'assets/js/apex-custom-pie-donut-chart.js' %}"></script>
         <script src="{% static 'assets/js/custom.js' %}"></script>
 </body>
+<script>
+    function button_click(e, form_id) {
+        var form = document.getElementById(form_id);
+        // var submitButton = document.getElementById(e.id);
 
+        form.addEventListener('submit', function () {
+            // $("cover-spin").show(0);
+            // Disable the submit button
+            e.setAttribute('disabled', 'disabled');
+            // Change the "Submit" text
+            e.innerHTML = 'Please wait...';
+
+        }, false);
+    }
+</script>
 </html>
 
 

@@ -240,7 +240,7 @@
 
 
                 <div class="contact-form custom">
-                    <form method="POST" id="" action="{% url 'new_case' %}">
+                    <form method="POST" id="form_id" action="{% url 'new_case' %}">
                         {% csrf_token %}
                         <div class="form-group">
                             <label style="display: block; text-align: right; margin-right: 5px;">کیفیت</label>
@@ -301,7 +301,7 @@
                         </div>
 
                         <div>
-                            <button type="submit" class="default-btn">
+                            <button type="submit" class="default-btn" onclick="button_click(this, 'form_id')">
                                 Add Now
                             </button>
                             <div id="msgSubmit" class="h3 text-center hidden"></div>
@@ -333,5 +333,19 @@
     <script src="{% static 'assets/js/apex-custom-pie-donut-chart.js' %}"></script>
     <script src="{% static 'assets/js/custom.js' %}"></script>
 </body>
+<script>
+    function button_click(e, form_id) {
+        var form = document.getElementById(form_id);
+        // var submitButton = document.getElementById(e.id);
 
+        form.addEventListener('submit', function () {
+            // $("cover-spin").show(0);
+            // Disable the submit button
+            e.setAttribute('disabled', 'disabled');
+            // Change the "Submit" text
+            e.innerHTML = 'Please wait...';
+
+        }, false);
+    }
+</script>
 </html>

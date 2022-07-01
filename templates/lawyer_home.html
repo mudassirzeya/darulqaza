@@ -122,7 +122,7 @@
                 <br>
                 <hr>
 
-                <form class="search-forms" method="get">
+                <form class="search-forms" method="get" id="form_id">
                     <div class="form-group style-three">
                         {% if searched_text %}
                         <input type="text" class="form-control" placeholder="Search..." name="text" value="{{searched_text}}">
@@ -187,7 +187,7 @@
                             </a>
                         </div>
                         <div class="col-6">
-                            <button class="btn btn-success btn-sm mb-2" style="font-size: 15px;">
+                            <button class="btn btn-success btn-sm mb-2" style="font-size: 15px;" onclick="button_click(this, 'form_id')">
                                 <i class="fas fa-search">&nbsp;</i>
                                 Search
                             </button>
@@ -281,5 +281,20 @@
     <script src="{% static 'assets/js/apex-custom-pie-donut-chart.js' %}"></script>
     <script src="{% static 'assets/js/custom.js' %}"></script>
 </body>
+<script>
+    function button_click(e, form_id) {
+        var form = document.getElementById(form_id);
+        // var submitButton = document.getElementById(e.id);
+
+        form.addEventListener('submit', function () {
+            // $("cover-spin").show(0);
+            // Disable the submit button
+            e.setAttribute('disabled', 'disabled');
+            // Change the "Submit" text
+            e.innerHTML = 'Please wait...';
+
+        }, false);
+    }
+</script>
 
 </html>
