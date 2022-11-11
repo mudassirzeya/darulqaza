@@ -148,13 +148,21 @@ def edit_judge(request):
 @login_required(login_url='user_login')
 def add_court(request):
     all_court = Court.objects.all()
+    court_list = []
+    for court in all_court:
+        temp = {}
+        all_cases = Case.objects.filter(court=court)
+        temp["court"] = court.court_name
+        temp['total_case'] = all_cases.count()
+        court_list.append(temp)
+    print('court list', court_list)
     if request.method == "POST":
         name = request.POST.get("name")
         Court.objects.create(
             court_name=name
         )
         return redirect('court_list')
-    context = {'courts': all_court}
+    context = {'courts': court_list}
     return render(request, "court_list.html", context)
 
 

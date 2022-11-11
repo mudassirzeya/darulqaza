@@ -1,9 +1,9 @@
 {
-  "name": "Aalim",
-  "short_name": "Aalim_App",
+  "name": "Darul Qaza",
+  "short_name": "DarulQaza",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#666666",
+  "background_color": "#6610f2",
   "theme_color": "#FFFFFF",
   "orientation": "portrait-primary",
   "icons": [

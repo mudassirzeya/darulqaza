@@ -13,13 +13,15 @@
             <tr>
                 <th>#</th>
                 <th>Court Name</th>
+                <th>Total Cases</th>
             </tr>
         </thead>
         <tbody>
             {% for court in courts %}
             <tr>
                 <td>{{forloop.counter}}</td>
-                <td>{{court.court_name}}</td>
+                <td>{{court.court}}</td>
+                <td>{{court.total_case}}</td>
             </tr>
             {% endfor %}
         </tbody>
