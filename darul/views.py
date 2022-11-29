@@ -155,7 +155,7 @@ def add_court(request):
         temp["court"] = court.court_name
         temp['total_case'] = all_cases.count()
         court_list.append(temp)
-    print('court list', court_list)
+    # print('court list', court_list)
     if request.method == "POST":
         name = request.POST.get("name")
         Court.objects.create(
@@ -238,7 +238,8 @@ def lawyer_page(request):
                 all_cases = all_cases.filter(
                     Q(accused__contains=text) |
                     Q(plaintiff__contains=text) |
-                    Q(aditional_text__contains=text)
+                    Q(aditional_text__contains=text) |
+                    Q(case_num__contains=text)
                 )
 
     case_type = CaseType.objects.all()

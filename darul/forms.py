@@ -21,6 +21,10 @@ class CaseForm(forms.ModelForm):
                 'class': "form-control",
                 'required': "required"
             }),
+            'case_num': forms.TextInput(attrs={
+                'class': "form-control",
+                'required': "required",
+            }),
             'date': forms.DateInput(attrs={
                 'class': "form-control",
                 'required': "required",
