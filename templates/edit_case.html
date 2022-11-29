@@ -83,7 +83,7 @@
                         <form method="POST" id="form_id" action="{% url 'edit_case' case_data.id %}">
                             {% csrf_token %}
                             <div class="form-group">
-                                <label style="display: block; text-align: right; margin-right: 5px;">Case Number</label>
+                                <label style="display: block; text-align: right; margin-right: 5px;">کیس نمبر</label>
                                 {{form.case_num}}
                                 <div class="help-block with-errors"></div>
                             </div>
