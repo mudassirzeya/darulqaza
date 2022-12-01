@@ -1,6 +1,6 @@
 from unicodedata import name
 from django.urls import path
-from.views import login_page, admin_page, lawyer_page, logout_user, add_admin, add_judge, add_court, add_case_type, add_new_case, recieve_judge_id, edit_case, edit_judge, add_timeline_notes, overview_page, cases_overview_page
+from.views import login_page, admin_page, lawyer_page, logout_user, add_admin, add_judge, add_court, add_case_type, add_new_case, recieve_judge_id, edit_case, edit_judge, add_timeline_notes, overview_page, cases_overview_page, edit_court_name
 
 urlpatterns = [
     path('user_login/', login_page, name='user_login'),
@@ -10,6 +10,7 @@ urlpatterns = [
     path('judges_list/', add_judge, name='judges_list'),
     path('edit_judge/', edit_judge, name='edit_judge'),
     path('court_list/', add_court, name='court_list'),
+    path('edit_court_name/', edit_court_name, name='edit_court_name'),
     path('case_types/', add_case_type, name='case_types'),
     path('', lawyer_page, name='lawyer_page'),
     path('new_case/', add_new_case, name='new_case'),

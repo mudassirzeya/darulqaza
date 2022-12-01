@@ -207,7 +207,7 @@
                 <div class="single-support">
 
                     <div class="support-content">
-                        <h3>Case: {{ case.id }} - {{case.case_type.case_type}}</h3>
+                        <h3>Case: {{ case.case_num|default_if_none:"" }} - {{case.case_type.case_type}}</h3>
                         <p>{{case.plaintiff}}, {{case.accused}}</p>
                         <a href="{% url 'edit_case' case.id %}" class="read-more">
                             View Detail

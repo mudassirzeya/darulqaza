@@ -28,7 +28,7 @@ class Court(models.Model):
     court_name = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self) -> str:
-        return self.court_name
+        return str(self.court_name)
 
 
 class CaseType(models.Model):

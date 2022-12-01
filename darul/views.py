@@ -145,6 +145,17 @@ def edit_judge(request):
     return render(request, 'judge_list.html', context)
 
 
+def edit_court_name(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        court_id = data["data_obj"]
+        print('court', court_id)
+        court = Court.objects.get(id=int(court_id))
+        return JsonResponse({"msg": "success", "court_name": court.court_name})
+    context = {}
+    return render(request, 'court_list.html', context)
+
+
 @login_required(login_url='user_login')
 def add_court(request):
     all_court = Court.objects.all()
@@ -153,14 +164,22 @@ def add_court(request):
         temp = {}
         all_cases = Case.objects.filter(court=court)
         temp["court"] = court.court_name
+        temp['court_id'] = court.id
         temp['total_case'] = all_cases.count()
         court_list.append(temp)
     # print('court list', court_list)
     if request.method == "POST":
-        name = request.POST.get("name")
-        Court.objects.create(
-            court_name=name
-        )
+        if 'add_court_name' in request.POST:
+            name = request.POST.get("name")
+            Court.objects.create(
+                court_name=name
+            )
+        if 'edit_court_name' in request.POST:
+            court_id = request.POST.get("court_id")
+            court_name = request.POST.get("edited_name")
+            court = Court.objects.get(id=int(court_id))
+            court.court_name = court_name
+            court.save()
         return redirect('court_list')
     context = {'courts': court_list}
     return render(request, "court_list.html", context)
