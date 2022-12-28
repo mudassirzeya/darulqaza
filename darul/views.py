@@ -167,11 +167,11 @@ def add_court(request):
         temp['court_id'] = court.id
         temp['total_case'] = all_cases.count()
         temp['judge'] = []
-        court_list.append(temp)
         judge = Judge.objects.filter(court=court)
         for each_judge in judge:
             temp['judge'].append(
                 each_judge.user.user.first_name + ' - ' + each_judge.user.phone)
+        court_list.append(temp)
     print('court list', court_list)
     if request.method == "POST":
         if 'add_court_name' in request.POST:
