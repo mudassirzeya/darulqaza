@@ -11,10 +11,11 @@
     <table class="table table-hover table-bordered" id="file_export">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Court Name</th>
-                <th>Total Cases</th>
-                <th></th>
+                <th style="width: 5%;">#</th>
+                <th style="width: 45%;">Court Name</th>
+                <th style="width: 10%;">Total Cases</th>
+                <th style="width: 30%;">Judge</th>
+                <th style="width: 10%;"></th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,11 @@
                 <td>{{forloop.counter}}</td>
                 <td>{{court.court}}</td>
                 <td>{{court.total_case}}</td>
+                <td>
+                    {% for judge in court.judge %}
+                        {{judge}} <br>
+                    {% endfor %}
+                </td>
                 <td><button class=" btn btn-danger" id="court_{{court.court_id}}" onclick="edit_court_popup(this)">
                     <i class="fas fa-edit"></i></button></td>
             </tr>
